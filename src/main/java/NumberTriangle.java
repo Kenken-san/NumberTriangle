@@ -122,7 +122,6 @@ public class NumberTriangle {
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
 
-        // TODO define any variables that you want to use to store things
         java.util.List<java.util.List<NumberTriangle>> levels = new java.util.ArrayList<>();
 
         // will need to return the top of the NumberTriangle,
@@ -135,7 +134,6 @@ public class NumberTriangle {
             // remove when done; this line is included so running starter code prints the contents of the file
             System.out.println(line);
 
-            // TODO process the line
             String[] a = line.trim().split("\\s+");
             java.util.List<NumberTriangle> row = new java.util.ArrayList<>();
             for (String s : a) {
