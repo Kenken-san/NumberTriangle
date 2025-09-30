@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
@@ -88,7 +89,18 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
+        if (path.isEmpty()) {
+            return this.root;
+        }
+        char first = path.charAt(0);
+        String rest = path.substring(1);
+
+        if (first == 'l') {
+            return this.left.retrieve(rest);
+        }
+        else if (first == 'r') {
+            return this.right.retrieve(rest);
+        }
         return -1;
     }
 
@@ -111,6 +123,7 @@ public class NumberTriangle {
 
 
         // TODO define any variables that you want to use to store things
+        java.util.List<java.util.List<NumberTriangle>> levels = new java.util.ArrayList<>();
 
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
@@ -123,11 +136,29 @@ public class NumberTriangle {
             System.out.println(line);
 
             // TODO process the line
+            String[] a = line.trim().split("\\s+");
+            java.util.List<NumberTriangle> row = new java.util.ArrayList<>();
+            for (String s : a) {
+                int value = Integer.parseInt(s);
+                row.add(new NumberTriangle(value));
+            }
+            if (!levels.isEmpty()) {
+                java.util.List<NumberTriangle> prev = levels.get(levels.size() - 1);
+                for (int i = 0; i<prev.size(); i++) {
+                    prev.get(i).setLeft(row.get(i));
+                    prev.get(i).setRight(row.get(i + 1));
+                }
+            }
+            levels.add(row);
+
 
             //read the next line
             line = br.readLine();
         }
         br.close();
+        if (!levels.isEmpty()) {
+            top =  levels.get(0).get(0);
+        }
         return top;
     }
 
